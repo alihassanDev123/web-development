@@ -1,0 +1,13 @@
+.container {
+    background-color: #000;
+    width: 100%;
+}
+
+.left-side {
+    padding: 15px;
+}
+
+.right-side ul li {
+    color: white;
+    list-style: none;
+}
