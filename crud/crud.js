@@ -71,6 +71,10 @@ function handleSuccessResponse(response) {
   });
 }
 
+function deleteTodo(id) {
+  
+}
+
 
 $(document).ready(function () {
   getTodos();
