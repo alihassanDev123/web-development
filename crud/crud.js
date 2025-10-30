@@ -18,12 +18,17 @@ function addTodo() {
     alert("Please enter a todo item.");
     return;
   }
+  // Add todo to DOM with correct structure
   $("#todo-list").prepend(`
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        ${newTodo}
-        <button class="btn btn-danger btn-sm">Delete</button>
+      <span class="todo-text">${newTodo}</span>
+      <div>
+        <button class="btn btn-warning btn-sm edit-btn me-2">Edit</button>
+        <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+      </div>
     </li>
-`);
+  `);
+  // Optionally send to API (not needed for local demo)
   $.ajax({
     url: `${base_url}`,
     method: "POST",
@@ -63,16 +68,37 @@ function handleSuccessResponse(response) {
   todoList.empty();
   todos.forEach((todo) => {
     todoList.append(`
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                ${todo.title}
-                <button class="btn btn-danger btn-sm" onclick="deleteTodo(${todo.id})">Delete</button>
-            </li>
-        `);
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="todo-text">${todo.title}</span>
+        <div>
+          <button class="btn btn-warning btn-sm edit-btn me-2">Edit</button>
+          <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+        </div>
+      </li>
+    `);
   });
 }
 
-function deleteTodo(id) {
-  
+function deleteTodo(element) {
+  $(element).closest("li").remove();
+}
+
+function editTodo(element) {
+  let li = $(element).closest("li");
+  let textSpan = li.find(".todo-text");
+  let oldText = textSpan.text();
+  let input = $(`<input type="text" class="form-control form-control-sm" value="${oldText}">`);
+  textSpan.replaceWith(input);
+  $(element).text("Save").removeClass("edit-btn btn-warning").addClass("save-btn btn-success");
+}
+
+function saveUpdatedTodo(element) {
+  let li = $(element).closest("li");
+  let input = li.find("input");
+  let newText = input.val().trim();
+  if (!newText) return alert("Todo cannot be empty!");
+  input.replaceWith(`<span class="todo-text">${newText}</span>`);
+  $(element).text("Edit").removeClass("save-btn btn-success").addClass("edit-btn btn-warning");
 }
 
 
@@ -80,4 +106,16 @@ $(document).ready(function () {
   getTodos();
 
   $("#todo-form").submit(handleFormSubmit);
+
+  $("#todo-list").on("click", ".delete-btn", function () {
+    deleteTodo(this);
+  });
+
+  $("#todo-list").on("click", ".edit-btn", function () {
+    editTodo(this);
+  });
+
+  $("#todo-list").on("click", ".save-btn", function () {
+    saveUpdatedTodo(this);
+  });
 });
