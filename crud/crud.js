@@ -18,7 +18,6 @@ function addTodo() {
     alert("Please enter a todo item.");
     return;
   }
-  // Add todo to DOM with correct structure
   $("#todo-list").prepend(`
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span class="todo-text">${newTodo}</span>
@@ -28,7 +27,6 @@ function addTodo() {
       </div>
     </li>
   `);
-  // Optionally send to API (not needed for local demo)
   $.ajax({
     url: `${base_url}`,
     method: "POST",
