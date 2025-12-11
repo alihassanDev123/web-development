@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/header", { title: "Articles | BeSpace" }) %>
+
+  <body>
+    <%- include("partials/navbar") %>
+
+    <div class="articles-hero">
+      <img src="./assets/articles.jpg" alt="Articles Hero" />
+      <h1>Articles</h1>
+    </div>
+
+    <div class="filter-bar">
+      <span>Filter by</span>
+
+      <a href="#">Categories ▼</a>
+      <a href="#">Tags ▼</a>
+      <a href="#">Authors ▼</a>
+
+      <a class="filter-clear" href="#">✖ Show all</a>
+    </div>
+
+    <div class="article-container">
+      <div class="article-image">
+        <img src="./assets/tech2.jpg" alt="Rocket Launch" />
+      </div>
+
+      <div class="article-info">
+        <p class="like-count">♡ 55</p>
+
+        <h2 class="article-title">Quisque lorem tortor fringilla</h2>
+
+        <p class="article-desc">
+          Aliquam erat ac ipsum. Integer aliquam purus. Quisque lorem tortor
+          fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa
+          ac turpis faucibus orci luctus non, consectetur lobortis quis, varius
+          in, purus. Integer ultrices posuere cubilia Curae. Nulla ipsum dolor
+          lacus, suscipit adipiscing. Cum sociis natoque penatibus et ultrices.
+        </p>
+      </div>
+    </div>
+
+    <%- include("partials/footer") %>
+  </body>
+</html>
